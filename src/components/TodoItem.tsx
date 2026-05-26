@@ -10,7 +10,6 @@ export const TodoItem = ({todo}: {todo: Todo}) => {
 
     const handleUpdate = () => {
         updateTodo(todo.id, text)
-        console.log(todo)
         setIsEditing(false)
     }
 

@@ -34,7 +34,10 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
     }
     const updateTodo = (id:number ,text: string) => {
         setLoading(true)
-        setTodos((prev) => prev.map((todo) => (todo.id === id ? { ... todo, text} : todo)))
+        const modifiedData = todos.map((todo) => (todo.id === id ? { ... todo, text} : todo))
+        setTodos(() => modifiedData)
+        console.log(modifiedData)
+        localStorage.setItem("todos", JSON.stringify(modifiedData))
         setTimeout(() => {setLoading(false)}, 500)
     }
     const deleteTodo = (id: number) => {
@@ -44,7 +47,6 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         console.log(remaining)
         console.log(JSON.stringify(todos))
         localStorage.setItem("todos", JSON.stringify(todos))
-        
         setLoading(false)
     }
     const toggleComplete = (id: number) => {
