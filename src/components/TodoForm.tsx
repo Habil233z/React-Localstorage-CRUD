@@ -14,8 +14,8 @@ export default function TodoForm() {
 
     return (
         <form onSubmit={handleSubmit} className="m-4">
-            <input type="text" value={text} onChange={(e) => setText(e.target.value)} className="border" disabled={loading} placeholder="Add new task" />
-            <button type="submit" disabled={loading}>Add</button>
+            <input type="text" value={text} onChange={(e) => setText(e.target.value)} className="border h-8" disabled={loading} placeholder="Add new task" />
+            <button type="submit" disabled={loading} className="border border-black ml-4 h-8 w-12 hover:bg-gray-200">Add</button>
         </form>
     )
 }

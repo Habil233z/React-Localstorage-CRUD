@@ -15,9 +15,9 @@ export const TodoItem = ({todo}: {todo: Todo}) => {
 
     return (
         <div className="flex gap-4 border p-2 w-150">
-            <input type="checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} />
+            <input type="checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} className="hover:bg-gray-200"/>
             {isEditing ? (
-                <><input value={text} onChange={(e) => setText(e.target.value)} className="border" disabled={loading}/></>
+                <><input value={text} onChange={(e) => setText(e.target.value)} className="border hover:bg-gray-200" disabled={loading}/></>
             ) : (
                 <><span style={{textDecoration: todo.completed? "line-through" : "none"}} className="flex items-center">{todo.text}</span></>
             )}
@@ -25,11 +25,11 @@ export const TodoItem = ({todo}: {todo: Todo}) => {
             <div className=" flex w-full flex-row-reverse">
                 <div className="">
             {isEditing ? (
-                <button onClick={handleUpdate} disabled={loading} className="border p-1">Save</button>
+                <button onClick={handleUpdate} disabled={loading} className="border p-1 hover:bg-gray-200">Save</button>
             ) : (
-                <button onClick={() => setIsEditing(true)} disabled={loading} className="border p-1">Edit</button>
+                <button onClick={() => setIsEditing(true)} disabled={loading} className="border p-1 hover:bg-gray-200">Edit</button>
             )}
-            <button onClick={() => deleteTodo(todo.id)} disabled={loading} className="border p-1 ml-2">Delete</button>
+            <button onClick={() => deleteTodo(todo.id)} disabled={loading} className="border p-1 ml-2 hover:bg-gray-200">Delete</button>
                 </div>
             </div>
         </div>
