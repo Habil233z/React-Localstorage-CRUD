@@ -18,10 +18,11 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
             setIdCounter(idConvert + 1)
         }
         console.log(todos)
-        setTimeout(() => {setLoading(false)}, 500)
+        setTimeout(() => 500)
     }
 
     const createTodo = (text: string) => {
+        setLoading(true)
         const newToDo:Todo = {id: idCounter, text, completed: false}
         setTodos((prev) => [newToDo, ... prev])
         setIdCounter((prev) => prev + 1)
