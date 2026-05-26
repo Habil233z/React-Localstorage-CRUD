@@ -28,7 +28,7 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         const newObject: any = newToDo
         const array: any[] = [newObject ,...oldObjects]
         localStorage.setItem("todos", JSON.stringify(array))
-        
+
         setIdCounter((prev) => prev + 1)
         localStorage.setItem("latestId", JSON.stringify(idCounter))
         setTimeout(() => {setLoading(false)}, 500)
@@ -41,11 +41,9 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         setTimeout(() => {setLoading(false)}, 500)
     }
     const deleteTodo = (id: number) => {
-        setLoading(true)
         const remaining = todos.filter((todo) => todo.id !== id)
         setTodos(remaining)
         localStorage.setItem("todos", JSON.stringify(remaining))
-        setLoading(false)
     }
     const toggleComplete = (id: number) => {
         const status = todos.map((todo) => (todo.id === id ? { ... todo, completed: !todo.completed} : todo))
