@@ -17,7 +17,6 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
             const idConvert: number = Number(localStorage.getItem("latestId"))
             setIdCounter(idConvert + 1)
         }
-        console.log(todos)
         setTimeout(() => 500)
     }
 
@@ -25,11 +24,12 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         setLoading(true)
         const newToDo:Todo = {id: idCounter, text, completed: false}
         setTodos((prev) => [newToDo, ... prev])
-        setIdCounter((prev) => prev + 1)
         const oldObjects: any[] = todos
         const newObject: any = newToDo
         const array: any[] = [newObject ,...oldObjects]
         localStorage.setItem("todos", JSON.stringify(array))
+        
+        setIdCounter((prev) => prev + 1)
         localStorage.setItem("latestId", JSON.stringify(idCounter))
         setTimeout(() => {setLoading(false)}, 500)
     }
@@ -44,8 +44,6 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         setLoading(true)
         const remaining = todos.filter((todo) => todo.id !== id)
         setTodos(remaining)
-        console.log(remaining)
-        console.log(JSON.stringify(remaining))
         localStorage.setItem("todos", JSON.stringify(remaining))
         setLoading(false)
     }
