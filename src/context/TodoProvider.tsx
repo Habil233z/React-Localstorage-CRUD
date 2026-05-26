@@ -13,9 +13,9 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         if (oldData) {
             const todosData:Todo[] = JSON.parse(oldData)
             setTodos(todosData)
-            setIdCounter(todosData.length + 1)
-            console.log(todosData)
-            console.log(todosData.length)
+
+            const idConvert: number = Number(localStorage.getItem("latestId"))
+            setIdCounter(idConvert + 1)
         }
         console.log(todos)
         setTimeout(() => {setLoading(false)}, 500)
@@ -27,16 +27,15 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         setIdCounter((prev) => prev + 1)
         const oldObjects: any[] = todos
         const newObject: any = newToDo
-        const array: any[] = [...oldObjects, newObject]
+        const array: any[] = [newObject ,...oldObjects]
         localStorage.setItem("todos", JSON.stringify(array))
-        console.log(array)
+        localStorage.setItem("latestId", JSON.stringify(idCounter))
         setTimeout(() => {setLoading(false)}, 500)
     }
     const updateTodo = (id:number ,text: string) => {
         setLoading(true)
         const modifiedData = todos.map((todo) => (todo.id === id ? { ... todo, text} : todo))
         setTodos(() => modifiedData)
-        console.log(modifiedData)
         localStorage.setItem("todos", JSON.stringify(modifiedData))
         setTimeout(() => {setLoading(false)}, 500)
     }
@@ -45,12 +44,14 @@ export const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         const remaining = todos.filter((todo) => todo.id !== id)
         setTodos(remaining)
         console.log(remaining)
-        console.log(JSON.stringify(todos))
-        localStorage.setItem("todos", JSON.stringify(todos))
+        console.log(JSON.stringify(remaining))
+        localStorage.setItem("todos", JSON.stringify(remaining))
         setLoading(false)
     }
     const toggleComplete = (id: number) => {
-        setTodos((prev) => prev.map((todo) => (todo.id === id ? { ... todo, completed: !todo.completed} : todo)))
+        const status = todos.map((todo) => (todo.id === id ? { ... todo, completed: !todo.completed} : todo))
+        setTodos(() => status)
+        localStorage.setItem("todos", JSON.stringify(status))
     }
     return (
         <TodoContext.Provider value={{todos, createTodo, updateTodo, deleteTodo, toggleComplete, openTodo, loading}}>
