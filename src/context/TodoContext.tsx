@@ -3,6 +3,7 @@ import { createContext } from "react";
 
 export interface TodoContextType {
     todos: Todo[]
+    openTodo: any
     createTodo: (text: string) => void
     updateTodo: (id: number ,text: string) => void
     deleteTodo: (id: number) => void
